@@ -1,0 +1,52 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red219\green39\blue218;}
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c89513\c29736\c88485;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww23040\viewh15840\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf2 \CocoaLigature0 parasningune@Parass-MacBook 2 % g++ 2a.c\
+clang: 
+\f1\b \cf3 warning: \cf2 treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+\f0\b0 \
+parasningune@Parass-MacBook 2 % ./a.out \
+\
+HOW MANY NOS DO YOU WANT IN ARRAY: 10\
+ENTER ARRAY ELEMENT: 99\
+23\
+4\
+1\
+345\
+234\
+22\
+50\
+9\
+65\
+\
+		**********ZOMBIE STATE**************\
+\
+		**********ORPHAN STATE**************\
+  UID   PID  PPID        F CPU PRI NI       SZ    RSS WCHAN     S             ADDR TTY           TIME CMD\
+  242 10066     1     4004   0   4  0 411197600   4048 -      Ss                  0 ??         0:00.60 /System/Library/PrivateFrameworks/StreamingZip.framework/Versions/A/XPCServices/com.apple.StreamingUnzipService.privileged.xpc/Contents/MacOS/com.apple.StreamingUnzipService.privileged\
+  501 10190 10188     4006   0  31  0 410733808   1888 -      S+                  0 ttys009    0:00.01 sh -c ps -el | grep Z\
+  501 10192 10190     4006   0  31  0 410724048   1344 -      S+                  0 ttys009    0:00.00 grep Z\
+\
+	 CHILD PROCESS PID : 10189 \
+    0  1313     1     4004   0   4  0 410326496   6224 -      Ss                  0 ??         0:00.23 /System/Library/CoreServices/SubmitDiagInfo server-init\
+    0  1334     1     4004   0   4  0 410293760   2608 -      Ss                  0 ??         0:00.02 /System/Library/CoreServices/CrashReporterSupportHelper server-init\
+  501  8427     1     4004   0   4  0 410372384   7392 -      S                   0 ??         0:00.40 /usr/libexec/secinitd\
+  205  8587     1     4004   0   4  0 410372592   6656 -      S                   0 ??         0:05.83 /usr/libexec/secinitd\
+    0  9511     1     4004   0   4  0 410346576   9504 -      Ss                  0 ??         0:04.60 /System/Library/CoreServices/osanalyticshelper server-init\
+  501 10193 10189     4006   0  31  0 410724592   1728 -      S+                  0 ttys009    0:00.01 sh -c ps -el | grep init\
+  501 10195 10193     4006   0  31  0 410724048   1328 -      S+                  0 ttys009    0:00.00 grep init\
+	 PARENT PROCESS PPID : 10188\
+\
+ARRAY IN ASSCENDING ORDER: 	1	4	9	22	23	50	65	99	234	345\
+\
+\
+	TERMINATED CHILD PID: 10189\
+	PARENT PID (MAIN): 10188\
+	PARENTS PARENT PPID (BASH): 9941 \
+\
+ARRAY IN DESCENDING ORDER: 	345	234	99	65	50	23	22	9	4	1\
+}
