@@ -1,0 +1,82 @@
+****************************************
+Aggregation
+****************************************
+1)Find the total salary of all employees
+
+company_paras> db.company_paras.aggregate([{$group:{_id:null,salary_sum:{$sum:"$salary"}}}])
+[ { _id: null, salary_sum: 386100 } ]
+------------------------------------------------------------------------------------------------
+2)Find min max avg salary of all employees
+
+company_paras> db.company_paras.aggregate([{$group:{_id:null,min:{$min:"$salary"}}}])
+[ { _id: null, min: 1500 } ]
+company_paras> db.company_paras.aggregate([{$group:{_id:null,max:{$max:"$salary"}}}])
+[ { _id: null, max: 155000 } ]
+company_paras> db.company_paras.aggregate([{$group:{_id:null,average:{$avg:"$salary"}}}])
+[ { _id: null, average: 38610 } ]
+------------------------------------------------------------------------------------------------
+3)List the avg salary of all employees designation wise
+
+company_paras> db.company_paras.aggregate([{$group:{_id:null,min:{$min:"$salary"}}}])
+[ { _id: null, min: 1500 } ]
+company_paras> db.company_paras.aggregate([{$group:{_id:null,max:{$max:"$salary"}}}])
+[ { _id: null, max: 155000 } ]
+company_paras> db.company_paras.aggregate([{$group:{_id:null,average:{$avg:"$salary"}}}])
+[ { _id: null, average: 38610 } ]
+------------------------------------------------------------------------------------------------
+4)List the avg salary of all the employees salary wise in descending order
+
+company_paras> db.company_paras.aggregate([{$group:{_id:'$disignation',avg:{$avg:'$salary'}}},{$sort:{avg:-1}}])
+[
+  { _id: 'manager', avg: 152500 },
+  { _id: 'security', avg: 15500 },
+  { _id: 'publicity', avg: 14000 },
+  { _id: 'emp', avg: 10200 },
+  { _id: 'sales', avg: 4000 },
+  { _id: 'helper', avg: 1500 }
+]
+------------------------------------------------------------------------------------------------
+5)List the max salary of each department
+
+company_paras> db.company_paras.aggregate([{'$sort':{salary:-1}},{$group:{"_id":'$disignation',max:{$max:'$salary'}}}])
+[
+  { _id: 'security', max: 15500 },
+  { _id: 'manager', max: 155000 },
+  { _id: 'emp', max: 10500 },
+  { _id: 'publicity', max: 14000 },
+  { _id: 'sales', max: 4000 },
+  { _id: 'helper', max: 1500 }
+]
+------------------------------------------------------------------------------------------------
+6)List the avg salary of all employees jobwise whose average salary is greater than 10,000
+
+company_paras> db.company_paras.aggregate([{$group:{_id:"$eid",avgamt:{$avg:"$salary"}}},{$match:{avgamt:{$gt:10000}}}])
+[
+  { _id: 16, avgamt: 10500 },
+  { _id: 11, avgamt: 10100 },
+  { _id: 12, avgamt: 150000 },
+  { _id: 18, avgamt: 155000 },
+  { _id: 19, avgamt: 15500 },
+  { _id: 15, avgamt: 14000 },
+  { _id: 17, avgamt: 15500 }
+]
+
+
+------------------------------------------------------------------------------------------------
+7)List no. of employees working in each department
+
+company_paras> db.company_paras.aggregate([{$group:{'_id':'$department',count:{$sum:1}}}])
+[
+  { _id: 'publicity', count: 1 },
+  { _id: 'all', count: 2 },
+  { _id: 'sales', count: 5 },
+  { _id: 'security', count: 1 },
+  { _id: 'maintenance', count: 1 }
+]
+
+------------------------------------------------------------------------------------------------
+8)List the distinct job from emp collection
+
+company_paras> db.company_paras.distinct("department")
+[ 'all', 'maintenance', 'publicity', 'sales', 'security' ]
+------------------------------------------------------------------------------------------------

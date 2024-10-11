@@ -1,0 +1,197 @@
+dbs> use company_paras
+
+company_paras> db.company_paras.find()
+[
+  {
+    _id: ObjectId("66a88b05fa0fc30d65529542"),
+    ename: 'abc',
+    eid: 10,
+    disignation: 'emp',
+    salary: 10000,
+    hobbies: 'dance',
+    department: 'sales'
+  },
+  {
+    _id: ObjectId("66a88b545401d426cb858738"),
+    ename: 'def',
+    eid: 11,
+    disignation: 'emp',
+    salary: 10100,
+    hobbies: 'sing',
+    department: 'sales'
+  },
+  {
+    _id: ObjectId("66a88bf95401d426cb858739"),
+    ename: 'ghi',
+    eid: 12,
+    disignation: 'manager',
+    salary: 150000,
+    hobbies: 'read',
+    department: 'sales'
+  },
+  {
+    _id: ObjectId("66a88bf95401d426cb85873a"),
+    ename: 'jkl',
+    eid: 13,
+    disignation: 'sales',
+    salary: 4000,
+    hobbies: 'watch',
+    department: 'sales'
+  },
+  {
+    _id: ObjectId("66a88ca15401d426cb85873b"),
+    ename: 'mno',
+    eid: 14,
+    disignation: 'helper',
+    salary: 1500,
+    hobbies: 'sweep',
+    department: 'all'
+  },
+  {
+    _id: ObjectId("66a88ca15401d426cb85873c"),
+    ename: 'pqr',
+    eid: 15,
+    disignation: 'publicity',
+    salary: 14000,
+    hobbies: 'swim',
+    department: 'publicity'
+  },
+  {
+    _id: ObjectId("66ab17945401d426cb85873d"),
+    ename: 'stu',
+    eid: 16,
+    disignation: 'emp',
+    salary: 10500,
+    hobbies: 'binge',
+    department: 'security'
+  },
+  {
+    _id: ObjectId("66ab17945401d426cb85873e"),
+    ename: 'vwx',
+    eid: 17,
+    disignation: 'security',
+    salary: 15500,
+    hobbies: 'read',
+    department: 'maintenance'
+  },
+  {
+    _id: ObjectId("66ab17fa5401d426cb85873f"),
+    ename: 'y',
+    eid: 18,
+    disignation: 'manager',
+    salary: 155000,
+    hobbies: 'read',
+    department: 'sales'
+  },
+  {
+    _id: ObjectId("66ab17fa5401d426cb858740"),
+    ename: 'z',
+    eid: 19,
+    disignation: 'security',
+    salary: 15500,
+    hobbies: 'read',
+    department: 'all'
+  }
+]
+-----------------------------------------------------------------------------------------------------------------
+1] List names of salesman and publicity person
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({department:{$in:['sales', 'publicity']}}, {ename:1, _id:0})
+[
+  { ename: 'abc' },
+  { ename: 'def' },
+  { ename: 'ghi' },
+  { ename: 'jkl' },
+  { ename: 'pqr' },
+  { ename: 'y' }
+]
+-----------------------------------------------------------------------------------------------------------------
+2] List the eid, ename and salary from employee collection
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({}, {eid:1,ename:1, salary:1, _id:0})
+[
+  { ename: 'abc', eid: 10, salary: 10000 },
+  { ename: 'def', eid: 11, salary: 10100 },
+  { ename: 'ghi', eid: 12, salary: 150000 },
+  { ename: 'jkl', eid: 13, salary: 4000 },
+  { ename: 'mno', eid: 14, salary: 1500 },
+  { ename: 'pqr', eid: 15, salary: 14000 },
+  { ename: 'stu', eid: 16, salary: 10500 },
+  { ename: 'vwx', eid: 17, salary: 15500 },
+  { ename: 'y', eid: 18, salary: 155000 },
+  { ename: 'z', eid: 19, salary: 15500 }
+]
+-----------------------------------------------------------------------------------------------------------------
+3] List names of employee who are not managers
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({disignation: {$nin:['manager']}}, {ename:1, _id:0})
+[
+  { ename: 'abc' },
+  { ename: 'def' },
+  { ename: 'jkl' },
+  { ename: 'mno' },
+  { ename: 'pqr' },
+  { ename: 'stu' },
+  { ename: 'vwx' },
+  { ename: 'z' }
+]
+-----------------------------------------------------------------------------------------------------------------
+ 4] List the names of employees whose eid numbers are 11,13,17,19
+ ----------------------------------------------------------------------------------------------------------------
+ company_paras> db.company_paras.find({eid: {$in:[11,13,17,19]}}, {ename:1, _id:0})
+[
+  { ename: 'def' },
+  { ename: 'jkl' },
+  { ename: 'vwx' },
+  { ename: 'z' }
+]
+-----------------------------------------------------------------------------------------------------------------
+5] List the names of employee having reading as their hobby
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({hobbies:'read'}, {ename:1, _id:0})
+[
+	{ ename: 'ghi' }, 
+	{ ename: 'vwx' }, 
+	{ ename: 'y' }, 
+	{ ename: 'z' } 
+]
+-----------------------------------------------------------------------------------------------------------------
+7] List the various disignations in company database
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({}, {disignation:1, _id:0})
+[
+  { disignation: 'emp' },
+  { disignation: 'emp' },
+  { disignation: 'manager' },
+  { disignation: 'sales' },
+  { disignation: 'helper' },
+  { disignation: 'publicity' },
+  { disignation: 'emp' },
+  { disignation: 'security' },
+  { disignation: 'manager' },
+  { disignation: 'security' }
+]
+-----------------------------------------------------------------------------------------------------------------
+8] List the eid,ename, salary of all employees whose salary is less than than 10000
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({salary: {$gt:10000}}, {eid:1, ename:1,salary:1, _id:0})
+[
+  { ename: 'def', eid: 11, salary: 10100 },
+  { ename: 'ghi', eid: 12, salary: 150000 },
+  { ename: 'pqr', eid: 15, salary: 14000 },
+  { ename: 'stu', eid: 16, salary: 10500 },
+  { ename: 'vwx', eid: 17, salary: 15500 },
+  { ename: 'y', eid: 18, salary: 155000 },
+  { ename: 'z', eid: 19, salary: 15500 }
+]
+-----------------------------------------------------------------------------------------------------------------
+9] List the name and department of employee who work in publicity
+-----------------------------------------------------------------------------------------------------------------
+company_paras> db.company_paras.find({department:'publicity'}, {ename:1, disignation:1, _id:0})
+[ 
+	{ ename: 'pqr', disignation: 'publicity' } 
+]
+-----------------------------------------------------------------------------------------------------------------
+10] List all the employees whose name starts with 'A' letter
+-----------------------------------------------------------------------------------------------------------------
+
