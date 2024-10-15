@@ -1,0 +1,18 @@
+parasningune@Parass-MacBook 2 % gcc robin.c-o robin
+parasningune@Parass-MacBook 2 % ./robin
+Enter the number of processes: 5
+Enter arrival time and burst time for process 1: 0 2
+Enter arrival time and burst time for process 2: 0 5
+Enter arrival time and burst time for process 3: 0 1
+Enter arrival time and burst time for process 4: 0 3
+Enter arrival time and burst time for process 5: 0 4
+Enter time quantum: 2
+Round Robin Scheduling:
+	ID AT BT CT TAT WT
+	1 0 2 2 2 0
+	2 0 5 15 15 10
+	3 0 1 5 5 4
+	4 0 3 12 12 9
+	5 0 4 14 14 10
+   Average Turnaround Time: 9.60
+   Average Waiting Time: 6.60
