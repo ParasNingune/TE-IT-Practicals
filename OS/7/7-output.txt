@@ -1,0 +1,8 @@
+parasningune@Parass-MacBook 2 % gcc 7.c
+parasningune@Parass-MacBook 2 % ./a.out
+
+Hello I am Paras Ningune
+
+Total characters: 24
+Total words: 5
+Total Lines: 0
