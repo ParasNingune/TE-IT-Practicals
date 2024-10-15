@@ -1,0 +1,17 @@
+parasningune@Parass-MacBook 2 % gcc 4.c -lpthread
+parasningune@Parass-MacBook 2 % ./a.out
+
+Enter no. of producers you want to create: 6
+
+Enter no. of consumers you want to create: 5
+
+Producer produced 5 item
+Producer produced 0 item
+Producer produced 9 item
+Consumer consumed 5 item
+Producer produced 3 item
+Consumer consumed 3 item
+Consumer consumed 0 item
+Producer produced 6 item
+Producer produced 0 item
+Consumer consumed 0 item
