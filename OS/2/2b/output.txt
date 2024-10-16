@@ -1,0 +1,22 @@
+parasningune@Parass-MacBook 2 % ./myexe1 ./myexe2
+Enter elements for child:
+33
+11
+77
+22
+Parent process got created
+PID of parent process is: 14015
+Parent PID of parent process is: 10789
+Sorted Array by Parent:
+11
+22
+33
+77
+Parent PID of child process is: 14015
+Inside Different program
+Reversed Array....
+77
+33
+22
+11
+Exited from other program
