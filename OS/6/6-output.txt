@@ -1,0 +1,117 @@
+parasningune@Parass-MacBook 2 % gcc -o 6 6.c
+parasningune@Parass-MacBook 2 % ./6
+Enter the page reference string: 701230120
+Enter the size of the frame (minimum 3): 3
+MENU
+====
+1. FCFS
+2. Least Recently Used (LRU)
+3. Optimal
+4. Exit
+
+Your Choice: 1
+Running FIFO page replacement algorithm. 
+
+Data Requested  Frame contents      Page Fault
+==============================================
+        7         7                     Y
+
+        0         7   0                 Y
+
+        1         7   0   1             Y
+
+        2         0   1   2             Y
+
+        3         1   2   3             Y
+
+        0         2   3   0             Y
+
+        1         3   0   1             Y
+
+        2         0   1   2             Y
+
+        0         0   1   2             N
+==============================================
+Total no. of Page Faults: 8
+
+MENU
+====
+1. FIFO
+2. Least Recently Used (LRU)
+3. Optimal
+4. Exit
+
+Your Choice: 2
+Running LRU page replacement algorithm.
+
+Data Requested  Frame contents      Page Fault
+==============================================
+        7         7                     Y
+
+        0         7   0                 Y
+
+        1         7   0   1             Y
+
+        2         0   1   2             Y
+
+        3         1   2   3             Y
+
+        0         2   3   0             Y
+
+        1         3   0   1             Y
+
+        2         0   1   2             Y
+
+        0         0   1   2             N
+==============================================
+Total no. of Page Faults: 8
+
+
+
+
+
+MENU
+====
+1. FIFO
+2. Least Recently Used (LRU)
+3. Optimal
+4. Exit
+
+Your Choice: 3
+Running Optimal page replacement algorithm.
+
+Data Requested  Frame contents      Page Fault
+==============================================
+        7         7             	      Y
+
+        0         7   0                 Y
+
+        1         7   0   1             Y
+
+        2         2   0   1             Y
+
+        3         3   0   1             Y
+
+        0         3   0   1             N
+
+        1         3   0   1             N
+
+        2         2   0   1             Y
+
+        0         2   0   1             N
+==============================================
+Total no. of Page Faults: 6
+
+
+
+
+
+MENU
+====
+1. FIFO
+2. Least Recently Used (LRU)
+3. Optimal
+4. Exit
+
+Your Choice: 4
+parasningune@Parass-MacBook 2 %
