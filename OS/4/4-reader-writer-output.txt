@@ -1,0 +1,62 @@
+parasningune@Parass-MacBook 2 % gcc 4.c
+parasningune@Parass-MacBook 2 % ./a.out
+
+Enter number of readers:8
+
+Enter number of writers:6
+
+Writer 1 is trying to enter database for modifying data
+ Writer 1 is writing in database.
+ Writer 1 is leaving the database.
+
+Writer 2 is trying to enter database for modifying data
+ Writer 2 is writing in database.
+ Writer 2 is leaving the database.
+
+Writer 3 is trying to enter database for modifying data
+ Writer 3 is writing in database.
+ Writer 3 is leaving the database.
+
+Writer 4 is trying to enter database for modifying data
+ Writer 4 is writing in database.
+ Writer 4 is leaving the database.
+
+Writer 5 is trying to enter database for modifying data
+ Writer 5 is writing in database.
+ Writer 5 is leaving the database.
+
+Writer 6 is trying to enter database for modifying data
+ Writer 6 is writing in database.
+ Writer 6 is leaving the database.
+
+ Reader 1 is trying to enter database for reading.
+Reader 1 is now reading in database.
+Reader 1 has left the database.
+
+ Reader 2 is trying to enter database for reading.
+Reader 2 is now reading in database.
+Reader 2 has left the database.
+
+ Reader 3 is trying to enter database for reading.
+Reader 3 is now reading in database.
+Reader 3 has left the database.
+
+ Reader 4 is trying to enter database for reading.
+Reader 4 is now reading in database.
+Reader 4 has left the database.
+
+ Reader 5 is trying to enter database for reading.
+ Reader 7 is trying to enter database for reading.
+Reader 7 is now reading in database.
+ Reader 6 is trying to enter database for reading.
+Reader 5 is now reading in database.
+ Reader 8 is trying to enter database for reading.
+Reader 7 has left the database.
+
+Reader 5 has left the database.
+
+Reader 8 is now reading in database.
+Reader 8 has left the database.
+
+Reader 6 is now reading in database.
+Reader 6 has left the database.
