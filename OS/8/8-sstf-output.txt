@@ -1,0 +1,23 @@
+parasningune@Parass-MacBook 8 % gcc 8.c
+parasningune@Parass-MacBook 8 % ./a.out
+
+Enter the total number of tracks disk contains : 
+7
+
+Enter the no of reqs : 
+7
+
+Enter the requests : 
+82
+170
+43
+140
+24
+16
+190
+
+Enter the head position : 
+50
+
+OUTPUT : 
+43 	24 	16 	82 	140 	170 	190 	No of heads : 208 
