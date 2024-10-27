@@ -1,184 +1,227 @@
-#include <stdio.h>
-#include <limits.h>
-#define MAX_PAGES 20
- 
-typedef struct {
-    char data[MAX_PAGES];
-    int end;              
-} queue;
- 
-void enqueue(queue *q, char data);
-char dequeue(queue *q);
-void fifo(char string[], int frameSize, int count);
-void lru(char string[], int frameSize, int count);
-void optimal(char string[], int frameSize, int count);
- 
-int main() {
-    int frameSize, count, ch;
-    char string[50];
-    printf("Enter the page reference string (end with newline): ");
-    count = 0;
-    do {
-        scanf("%c", &string[count]);
-        count++;
-    } while (string[count - 1] != '\n');
-    count--;
-    printf("\nEnter the size of the frame (minimum 3): ");
+#include<stdio.h>
+#include<limits.h>
+
+void fifo(int pages[], int frameSize);
+void lru(int pages[], int frameSize);
+void optimal(int pages[], int frameSize);
+
+int main()
+{
+    int frameSize = 3;
+
+    int pages[10] = {7,0,1,2,3,0,1,2,0,3};
+    printf("\nEnter no of frames(Greater than or Equal to 3): ");
     scanf("%d", &frameSize);
-    if (frameSize < 3) {
-        printf("Frame size must be at least 3.\n");
-        return 1;
+    printf("\nEnter 10 pages...\n");
+
+    for(int i=0; i<10; i++)
+    {
+        printf("Enter %d no: ", i+1);
+        scanf("%d", &pages[i]);
     }
-    do {
-        printf("\nMENU\n====\n1. FIFO\n2. Least Recently Used (LRU)\n3. Optimal\n4. Exit\n\nYour Choice: ");
-        scanf("%d", &ch);
-        switch (ch) {
-            case 1:
-                printf("\nRunning FIFO page replacement algorithm...\n");
-                fifo(string, frameSize, count);
-                break;
-            case 2:
-                printf("\nRunning LRU page replacement algorithm...\n");
-                lru(string, frameSize, count);
-                break;
-            case 3:
-                printf("\nRunning Optimal page replacement algorithm...\n");
-                optimal(string, frameSize, count);
-                break;
-            case 4:
-                break;
-            default:
-                printf("\nInvalid choice! Please try again!");
-                continue;
-}} while (ch != 4);
-    return 0; }
-void enqueue(queue *q, char data) {
-    q->data[q->end] = data;
-    q->end++;
+
+    printf("\nPrinting Pages....\n");
+    for(int i=0; i<10; i++)
+    {
+        printf("%d\t", pages[i]);
+    }
+    printf("\n\n");
+    printf("\nFIFO...");
+    fifo(pages, frameSize);
+    printf("\n\n\n\n");
+    printf("\nLRU...");
+    lru(pages, frameSize);
+    printf("\n\n\n\n");
+    printf("\nOptimal...");
+    optimal(pages, frameSize);
 }
-char dequeue(queue *q) {
-    char value = q->data[0];
-    for (int i = 0; i < q->end - 1; i++) {
-        q->data[i] = q->data[i + 1];
-    } q->end--;
-    return value; }
-void fifo(char string[], int frameSize, int count) {
-    queue q;
-    int pageFaults = 0;
-    int flag;  
-    q.end = 0;
-    printf("\nData Requested\tFrame contents\t    Page Fault\n==============================================");
-    for (int i = 0; i < count; i++) {
-        printf("\n\n\t%c", string[i]);
-        flag = 0;
-        for (int j = 0; j < q.end; j++) {
-            if (string[i] == q.data[j]) {
-                flag = 1;
+
+void fifo(int pages[], int frameSize)
+{
+    int faults=0, front=0, end=0;
+
+    int frame[frameSize];
+
+    printf("\n\nPages\tFrames\tPage Fault\n");
+    printf("==========================\n");
+
+    for(int i=0; i<10; i++)
+    {
+        int found=0;
+
+        for(int j=0; j<end; j++)
+        {
+            if(frame[j] == pages[i])
+            {
+                found = 1;
                 break;
-            }  }
-        if (flag == 0) {
-            pageFaults++;
-            if (q.end < frameSize) {
-                enqueue(&q, string[i]);
-            } else {
-                dequeue(&q);
-                enqueue(&q, string[i]);
             }
-            printf("\t  ");
-            for (int j = 0; j < q.end; j++) {
-                printf("%c   ", q.data[j]);
+        }
+
+        if(!found)
+        {
+            faults++;
+            if(end<frameSize)
+            {
+                frame[end++] = pages[i];
             }
-            printf("\t\tY");
-        } else {
-            printf("\t  ");
-            for (int j = 0; j < q.end; j++) {
-                printf("%c   ", q.data[j]);
+            else
+            {
+                frame[front] = pages[i];
+                front = (front+1)%frameSize;
             }
-            printf("\t\tN");
-        }   }
-    printf("\n\n==============================================\n");
-    printf("\nTotal no. of Page Faults: %d\n\n", pageFaults);​}
-void lru(char string[], int frameSize, int count) {
-    queue q;
-    int pageFaults = 0;
-    q.end = 0;
-    int recent[MAX_PAGES];
-    printf("\nData Requested\tFrame contents\t    Page Fault\n==============================================");
-    for (int i = 0; i < count; i++) {
-        printf("\n\n\t%c", string[i]);
-        int flag = 0;
-        for (int j = 0; j < q.end; j++) {
-            if (string[i] == q.data[j]) {
-                flag = 1;
+
+            printf("%d\t", pages[i]);
+            for(int k=0; k<end;k++)
+            {
+                printf("%d ", frame[k]);
+            }
+            printf("\tY\n");
+        }
+        else
+        {
+            printf("%d\t", pages[i]);
+            for(int k=0; k<end;k++)
+            {
+                printf("%d ", frame[k]);
+            }
+            printf("\tN\n");
+        }
+    }
+
+    printf("\n\nTotal Page Faults: %d", faults);
+}
+
+void lru(int pages[], int frameSize)
+{
+    int faults=0, end=0;
+
+    int frame[frameSize];
+    int recent[frameSize];
+
+    printf("\nPage\tFrames\tPage Fault\n");
+    printf("==========================\n");
+    for(int i=0; i<10;i++)
+    {
+        int found=0, min=0;
+        for(int j=0; j<end; j++)
+        {
+            if(frame[j] == pages[i])
+            {
+                found = 1;
                 recent[j] = i;
-                break;    }    }
-        if (flag == 0) {
-            pageFaults++;
-            if (q.end < frameSize) {
-                enqueue(&q, string[i]);
-                recent[q.end - 1] = i;
-            } else {
-                int lruIndex = 0;
-                for (int j = 1; j < frameSize; j++) {
-                    if (recent[j] < recent[lruIndex]) {
-                        lruIndex = j;​}     }
-                dequeue(&q);
-                enqueue(&q, string[i]);
-                recent[lruIndex] = i;
-            }   printf("\t  ");
-            for (int j = 0; j < q.end; j++) {
-                printf("%c   ", q.data[j]);
-            }    printf("\t\tY");
-        } else {
-            printf("\t  ");
-            for (int j = 0; j < q.end; j++) {
-                printf("%c   ", q.data[j]);  }
-            printf("\t\tN");
-        }   }
-    printf("\n\n==============================================\n");
-    printf("\nTotal no. of Page Faults: %d\n\n", pageFaults);}
-void optimal(char string[], int frameSize, int count) {
-    queue q;
-    int pageFaults = 0;
-    q.end = 0;
-    printf("\nData Requested\tFrame contents\t    Page Fault\n==============================================");
-    for (int i = 0; i < count; i++) {
-        printf("\n\n\t%c", string[i]);
-        int flag = 0;
-        for (int j = 0; j < q.end; j++) {
-            if (string[i] == q.data[j]) {
-                flag = 1;
-                break;   }     }
-        if (flag == 0) {
-            pageFaults++;
-            if (q.end < frameSize) {
-                enqueue(&q, string[i]);
-            } else {
-                int replaceIndex = -1, farthest = -1;
-                for (int j = 0; j < q.end; j++) {
-                    int found = 0;
-                    for (int k = i + 1; k < count; k++) {
-                        if (q.data[j] == string[k]) {
-                            found = 1;
-                            if (k > farthest) {
-                                farthest = k;
-                                replaceIndex = j;   }
-                            break;   }    }
-                    if (!found) {
-                        replaceIndex = j;
-                        break;   }  }
-                q.data[replaceIndex] = string[i];
-            }    printf("\t  ");
-            for (int j = 0; j < q.end; j++) {
-                printf("%c   ", q.data[j]);
-            }   printf("\t\tY");
-        } else {
-            printf("\t  ");
-            for (int j = 0; j < q.end; j++) {
-                printf("%c   ", q.data[j]);  }
-            printf("\t\tN");     }   }
-    printf("\n\n==============================================\n");
-    printf("\nTotal no. of Page Faults: %d\n\n", pageFaults);
+                break;
+            }
+        }
+
+        if(!found) 
+        {
+            faults++;
+            if(end<frameSize)
+            {
+                frame[end] = pages[i];
+                recent[end++] = i;
+            }
+            else
+            {
+                for(int j=1;j<end;j++)
+                {
+                    if(recent[j] < recent[min])
+                    {
+                        min = j;
+                    }
+                }
+                frame[min] = pages[i];
+                recent[min] = i;
+            }
+            printf("%d\t", pages[i]);
+
+            for(int k=0; k<end; k++)
+            {
+                printf("%d ", frame[k]);
+            }
+            printf("\tY\n");
+        }
+        else
+        {
+            printf("%d\t", pages[i]);
+            for(int k=0; k<end; k++)
+            {
+                printf("%d ", frame[k]);
+            }
+            printf("\tN\n");
+        }
+    }
+    printf("\nTotal Page Faults: %d\n", faults);
 }
- 
- 
+
+void optimal(int pages[], int frameSize)
+{
+    int faults=0, end=0;
+
+    int frame[frameSize];
+
+    printf("\nPage\tFrames\tPage Fault\n");
+    printf("==========================\n");
+
+    for(int i=0;i<10;i++)
+    {
+        int found=0;
+
+        for(int j=0;j<end;j++)
+        {
+            if(frame[j] == pages[i])
+            {
+                found=1;
+                break;
+            }
+        }
+
+        if(!found)
+        {
+            faults++;
+            if(end<frameSize)
+            {
+                frame[end++] = pages[i];
+            }
+            else
+            {
+                int replace=-1, far=i;
+                for(int j=0;j<end;j++)
+                {
+                    int k;
+                    for(k=i+1; k<10; k++)
+                    {
+                        if(frame[j] == pages[k])
+                        {
+                            break;
+                        }
+                    }
+                    if(k > far)
+                    {
+                        far = k;
+                        replace = j;
+                    }
+                }
+                frame[replace] = pages[i];
+            }    
+            printf("%d\t", pages[i]);
+
+            for(int k=0; k<end; k++)
+            {
+                printf("%d ", frame[k]);
+            }
+            printf("\tY\n");
+        }
+        else
+        {
+            printf("%d\t", pages[i]);
+            for(int k=0; k<end; k++)
+            {
+                printf("%d ", frame[k]);
+            }
+            printf("\tN\n");
+        }
+    }
+    printf("\nTotal Page Faults: %d\n", faults);
+}
