@@ -1,87 +1,98 @@
-echo "Assignment 1-b\n
-Write a program to implement an address book with options given below:\n 
-a) Create address book.\n
-b) View address book.\n
-c) Insert a record.\n
-d) Delete a record.\n
-e) Modify a record.\n
-f) Exit\n\n"
+echo "Assignment-1\n
+Program to create an address book"
 
 opt=1
-# read  -p "Enter File Name: "
-
+# read -p "Enter file name (New/Existing): " fileName
+fileName="address.txt"
 
 while [ "$opt" -lt 6 ]
-do
+do 
+    echo "\n\n"
+    echo "Choose one of the following:\n1. Create New Address Book\n2. View Records\n3. Insert Record\n4. Delete Record\n5. Update Record\n6. Exit"
+    read -p "Enter your choice: " opt
 
+    case $opt in
 
-	echo "Choose one of the Following\n1. Create a New Address Book\n2. View Records\n3. Insert new Record\n4. Delete a Record\n5. Modify a Record\n6. Exit"
-	# echo -e, enables special features of echo to use \n \t \b etc.
-	read opt
-	case $opt in
+    1)
+        read -p "Enter fileName to create: " newFileName
+        newFileName="$newFileName.txt"
+        echo $newFileName
+        if [ ! -f "$newFileName" ]; 
+            then
+                touch "$newFileName"
+                echo "New Address Book created successfully"
+                echo "Name\t\tRollNo\tAge\tCity\n" | cat >> $newFileName
+        else
+            echo "File already exists"
+        fi
 
-	1)
-		echo "Enter filename"
-		read fileName
-		if [ -e $fileName ] ; then	# -e to check if file exists, if exits remove the file
-			rm $fileName
-		fi
-		cont=1
-		echo  "NAME\tNUMBER\t\tADDRESS\n===============================\n" | cat >> $fileName
-		while [ "$cont" -gt 0 ]
-		do
-			echo "Enter Name"
-			read name
-			echo "Enter Phone Number of $name"
-			read number
-			echo "Enter Address of $name"
-			read address
-			echo "$name\t$number\t\t$address" | cat >> $fileName
-			echo "Enter 0 to Stop, 1 to Enter next"
-			read cont
-		done
-		;;
+            cnt=1
+            while [ $cnt -gt 0 ]
+                do
+                    echo "\n"
+                    read -p "Enter name of Student: " name
+                    read -p "Enter roll no of Student: " roll
+                    read -p "Enter age of Student: " age
+                    read -p "Enter city of Student: " city
+                    echo "$name\t\t$roll\t$age\t$city" | cat >> $fileName
 
-	2)
-		
-		cat $fileName
-		;;
-	3)
-		
-		echo "Enter Name"
-		read name
-		echo "Enter Phone Number of $name"
-		read number
-		echo "Enter Address of $name"
-		read address
-		echo "$name\t$number\t\t$address" | cat >> $fileName
-		;;
-	4)
-		
-		echo "Delete record\nEnter Name/Phone Number"
-		read pattern
-		temp="temp"
-		grep -v $pattern $fileName | cat >> $temp 
-		rm $fileName
-		cat $temp | cat >> $fileName
-		rm $temp
-		;;
-	5)
-		
-		echo "Modify record\nEnter Name/Phone Number"
-		read pattern
-		temp="temp"
-		grep -v $pattern $fileName | cat >> $temp
-		rm $fileName
-		cat $temp | cat >> $fileName
-		rm $temp
-		echo "Enter Name"
-		read name
-		echo "Enter Phone Number of $name"
-		read number
-		echo "Enter Address of $name"
-		read address
-		echo "$name\t$number\t\t$address" | cat >> $fileName
-		;;
-	esac
+                    echo "\n\nName: $name\nRoll No: $roll\nAge: $age\nCity: $city\nEntered in the file!!!!\n\n"
+                    echo "Enter 1 for Next\nEnter 0 to Stop"
+                    read -p "Enter your choice: " cnt
+                done
+            echo "\n\n"
+        ;;
+    
+    2) 
+        echo "\n"
+        cat $fileName
+        ;;
+    
+    3)
+        echo "\n"
+        read -p "Enter name of Student: " name
+        read -p "Enter roll no of Student: " roll
+        read -p "Enter age of Student: " age
+        read -p "Enter city of Student: " city
+        echo "$name\t\t$roll\t$age\t$city" | cat >> $fileName
+
+        echo "\n\nName: $name\nRoll No: $roll\nAge: $age\nCity: $city\nEntered in the file!!!!"
+        ;;
+
+    4) 
+        echo "\nDelete Record"
+        read -p "Enter Name/Roll No: " pattern
+        temp="temp"
+        grep -v $pattern $fileName | cat >> $temp
+        rm $fileName
+        cat $temp | cat >> $fileName
+        rm $temp
+        echo "Removed $pattern from Address Book\n"
+        cat $fileName
+        ;;
+
+    5)
+        echo "\nUpdate Record"
+        read -p "Enter Name/Roll No: " pattern
+        temp="temp"
+        grep -v $pattern $fileName | cat >> $temp
+        rm $fileName
+        cat $temp | cat >> $fileName
+        rm $temp
+        echo "\n"
+        read -p "Enter name of Student: " name
+        read -p "Enter roll no of Student: " roll
+        read -p "Enter age of Student: " age
+        read -p "Enter city of Student: " city
+
+        echo "$name\t\t$roll\t$age\t$city" | cat >> $fileName
+
+        echo "Name: $name\nRoll No: $roll\nAge: $age\nCity: $city\nUpdated in the file!!!"
+        ;;
+
+    6)
+        echo "Exit\n\n"
+        ;;
+    
+    esac
 done
